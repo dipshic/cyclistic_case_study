@@ -95,18 +95,6 @@ CREATE TABLE CYCLIST_TRIP_DATA AS
 -- SELECT table_name
 -- FROM USER_TABLES WHERE table_name = 'CYCLIST_TRIP_DATA';
 
---calculate trip length
-SELECT ended_at, started_at, EXTRACT(HOUR FROM (ended_at-started_at))*60 + EXTRACT(MINUTE FROM (ended_at-started_at))
-from CYCLIST_TRIP_DATA;
-
-ALTER TABLE CYCLIST_TRIP_DATA
--- ADD trip_duration_mins NUMBER;
-ADD trip_duration_secs NUMBER;
-
--- Create new column trip duration mins
-UPDATE CYCLIST_TRIP_DATA
-SET trip_duration_secs = EXTRACT(HOUR FROM (ended_at-started_at))*3600 + EXTRACT(MINUTE FROM (ended_at-started_at))*60 + EXTRACT(SECOND FROM (ended_at-started_at));
-
 -- View table
 SELECT *
 FROM CYCLIST_TRIP_DATA;
@@ -139,7 +127,7 @@ GROUP BY START_STATION_NAME
 ORDER BY rides DESC;
 
 --count number of round trips
-SELECT START_STATION_ID, END_STATION_ID,RIDEABLE_TYPE,TRIP_DURATION_SECS,MEMBER_CASUAL
+SELECT START_STATION_ID, END_STATION_ID,RIDEABLE_TYPE,MEMBER_CASUAL
 FROM CYCLIST_TRIP_DATA
 WHERE START_STATION_ID = END_STATION_ID;
 
@@ -218,8 +206,7 @@ OR START_LAT IS NULL
 OR START_LNG IS NULL
 OR END_LAT IS NULL
 OR END_LNG IS NULL
-OR MEMBER_CASUAL IS NULL
-OR TRIP_DURATION_SECS IS NULL;
+OR MEMBER_CASUAL IS NULL;
 
 --Identify and exclude data with anomalies
 --10743 rows deleted.
@@ -240,6 +227,14 @@ FROM CYCLIST_TRIP_DATA
 WHERE START_STATION_ID IS NULL OR START_STATION_NAME IS NULL;
 
 --Create queries for data visualisations
+
+--calculate trip length
+ALTER TABLE CYCLIST_TRIP_DATA
+ADD trip_duration_secs NUMBER;
+
+-- Create new column trip duration secs
+UPDATE CYCLIST_TRIP_DATA
+SET trip_duration_secs = EXTRACT(HOUR FROM (ended_at-started_at))*3600 + EXTRACT(MINUTE FROM (ended_at-started_at))*60 + EXTRACT(SECOND FROM (ended_at-started_at));
 
 --number of rides for casual and members
 CREATE TABLE MEM_CAS_RIDES AS
