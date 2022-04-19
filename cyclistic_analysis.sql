@@ -108,6 +108,11 @@ SELECT MEMBER_CASUAL, COUNT(*)
 FROM CYCLIST_TRIP_DATA
 GROUP BY MEMBER_CASUAL;
 
+-- Counting number of rideable types
+SELECT rideable_type, COUNT(1)
+FROM CYCLIST_TRIP_DATA
+GROUP BY rideable_type;
+
 -- Counting rides ending at each docking station
 SELECT END_STATION_ID, END_STATION_NAME, COUNT(1) AS rides
 FROM CYCLIST_TRIP_DATA
@@ -132,11 +137,6 @@ WHERE START_STATION_ID = END_STATION_ID;
 -- Counting total number of trips
 SELECT COUNT(*)
 FROM CYCLIST_TRIP_DATA;
-
--- Counting number of rideable type
-SELECT rideable_type, COUNT(1)
-FROM CYCLIST_TRIP_DATA
-GROUP BY rideable_type;
 
 ---------------------------------------------
 -- Data Quality Check
@@ -172,7 +172,8 @@ SELECT COUNT (*)
 FROM CYCLIST_TRIP_DATA 
 WHERE TRIM(START_STATION_ID) IS NULL OR TRIM(START_STATION_NAME) IS NULL;
 
--- Visual studio code shows null entries as blank fields.counting number of nulls
+-- Counting number of nulls
+-- Note: Visual studio code shows null entries as blank fields. 
 -- Checking on start and end stations
 SELECT COUNT (*) 
 FROM CYCLIST_TRIP_DATA 
