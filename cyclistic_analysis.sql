@@ -243,11 +243,11 @@ WHERE START_STATION_ID IS NULL OR START_STATION_NAME IS NULL;
 -- Tables for Visualization
 ---------------------------------------------
 
--- Calculate trip length
+-- Create new column trip duration secs
 ALTER TABLE CYCLIST_TRIP_DATA
 ADD trip_duration_secs NUMBER;
 
--- Create new column trip duration secs
+-- Calculate trip length
 UPDATE CYCLIST_TRIP_DATA
 SET trip_duration_secs = EXTRACT(HOUR FROM (ended_at-started_at))*3600 + EXTRACT(MINUTE FROM (ended_at-started_at))*60 + EXTRACT(SECOND FROM (ended_at-started_at));
 
