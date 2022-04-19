@@ -245,11 +245,11 @@ WHERE START_STATION_ID IS NULL OR START_STATION_NAME IS NULL;
 
 -- Create new column trip duration secs
 ALTER TABLE CYCLIST_TRIP_DATA
-ADD trip_duration_secs NUMBER;
+ADD TRIP_DURATION_SECS NUMBER;
 
 -- Calculate trip length
 UPDATE CYCLIST_TRIP_DATA
-SET trip_duration_secs = EXTRACT(HOUR FROM (ended_at-started_at))*3600 + EXTRACT(MINUTE FROM (ended_at-started_at))*60 + EXTRACT(SECOND FROM (ended_at-started_at));
+SET TRIP_DURATION_SECS = EXTRACT(HOUR FROM (ended_at-started_at))*3600 + EXTRACT(MINUTE FROM (ended_at-started_at))*60 + EXTRACT(SECOND FROM (ended_at-started_at));
 
 -- Number of rides for casual and members
 CREATE TABLE MEM_CAS_RIDES AS
