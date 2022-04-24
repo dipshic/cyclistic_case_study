@@ -5,4 +5,4 @@ This case study focuses on the customer behavior of a bike-share company in Chic
 
 The SQL code and the figures generated through Tableau are uploaded in the repository. For a detailed walkthrough of the case study, please visit the following link,
 
-www.dipshichakraborty.com
+https://www.dipshichakraborty.com/items/how-does-a-bike-share-company-navigate-speedy-success%3F
